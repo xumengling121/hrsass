@@ -8,16 +8,15 @@ const service = axios.create({
 service.interceptors.request.use()// 请求拦截器
 service.interceptors.response.use(
     response => {
+        //解构赋值
         const { success, message, data } = response.data
         if (success) {
             return data
         } else {
-            Message.error(message)
+            Message.error(message) //提示错误信息
             return Promise.reject(new Error(message))
         }
     }, error => {
-        //业务失败
-        //提示错误信息
         Message.error(error.message)
         return Promise.reject(error)
     }
